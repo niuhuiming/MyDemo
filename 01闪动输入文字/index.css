@@ -1,0 +1,71 @@
+.outer {
+  width: 550px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.blink {
+  animation: myblink 200ms infinite;
+}
+
+@keyframes myblink {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.word {
+  font-size: 50px;
+}
+
+.color1 {
+  color: #ef342a;
+}
+
+.color2 {
+  color: #f68f26;
+}
+
+.color3 {
+  color: #4ba946;
+}
+
+.color4 {
+  color: #0376c2;
+}
+
+.color5 {
+  color: #c077af;
+}
+
+.color6 {
+  color: #f8d29d;
+}
+
+.color7 {
+  color: #b5a87f;
+}
+
+.color8 {
+  color: #d0e4a9;
+}
+
+.color9 {
+  color: #4dc7ec;
+}
+
+.color10 {
+  color: #39c5bb;
+}
+
+.color11 {
+  color: #ffc0cb;
+}
+
+.color12 {
+  color: #ffe221;
+}
