@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 注意谷歌浏览器自动播放会失效 */
+    #video1 {
+      display: none;
+    } 
+  </style>
+</head>
+
+<body>
+  <!-- <p>要使用的视频:</p> -->
+  <video id="video1" controls width="270" autoplay> 
+    <source src="mov_bbb.mp4" type='video/mp4'>
+  </video>
+
+  <p>画布 (代码在每20毫秒绘制当前的视频帧):</p>
+  <canvas id="myCanvas" width="270" height="135" style="border:1px solid #000;">
+    您的浏览器不支持 HTML5 canvas 标签。
+  </canvas>
+
+
+  <script>
+    var vedio = document.getElementById("video1");
+    var canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext('2d');
+
+    vedio.addEventListener('play', function () {
+      var timer = setInterval(function () {
+        // ctx.drawImage：可播放要使用的图像、画布或视频
+        ctx.drawImage(vedio, 5, 5, 260, 125);
+      }, 20);
+    }, false);
+
+    vedio.addEventListener('pause', function () {
+      clearInterval(timer);
+    }, false);
+
+    vedio.addEventListener('ended', function () {
+      clearInterval(timer);
+    }, false);  
+  </script>
+</body>
+
+</html>
