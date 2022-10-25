@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="count">
+    还有
+    <span class="day">00</span>天
+    <span class="hour">00</span>小时
+    <span class="min">00</span>分
+    <span class="src">00</span>秒
+  </div>
+
+  <script>
+    let oCount = document.getElementById('count');
+    let spans = oCount.getElementsByTagName('span');
+
+    let endTime = new Date('2022/10/25 17:46:00');
+    let timer = setInterval(() => {
+      let curTime = new Date();
+      // 剩余时间 = 未来时间 - 现在时间
+      let lastTime = Math.floor((endTime - curTime) / 1000);
+      if (lastTime >= 0) {
+        spans[0].innerText = Math.floor(lastTime / 60 / 60 / 24);
+        spans[1].innerText = Math.floor(lastTime / 60 / 60 % 24);
+        spans[2].innerText = Math.floor(lastTime / 60 % 60);
+        spans[3].innerText = Math.floor(lastTime % 60);
+      } else {
+        clearInterval(timer);
+      }
+    }, 1000);
+  </script>
+</body>
+
+</html>
