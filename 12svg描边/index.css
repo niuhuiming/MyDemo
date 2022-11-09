@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 文字 */
+.logo {
+  animation: fill-anm 500ms ease forwards 2500ms;
+}
+
+.logo path:nth-child(1) {
+  stroke-dasharray: 477;
+  stroke-dashoffset: 477;
+  animation: line-anm 2s ease forwards;
+}
+
+.logo path:nth-child(2) {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: line-anm 2s ease forwards 300ms;
+}
+
+.logo path:nth-child(3) {
+  stroke-dasharray: 518;
+  stroke-dashoffset: 518;
+  animation: line-anm 2s ease forwards 600ms;
+}
+
+.logo path:nth-child(4) {
+  stroke-dasharray: 1082;
+  stroke-dashoffset: 1082;
+  animation: line-anm 3s ease forwards 900ms;
+}
+
+.logo path:nth-child(5) {
+  stroke-dasharray: 967;
+  stroke-dashoffset: 967;
+  animation: line-anm 3s ease forwards 1200ms;
+}
+/* iconfont */
+.icon {
+  animation: fill-anm 500ms ease forwards 2500ms;
+}
+
+.icon path:nth-child(1) {
+  stroke-dasharray: 426;
+  stroke-dashoffset: 426;
+  animation: line-anm 1s ease forwards;
+}
+
+.icon path:nth-child(2) {
+  stroke-dasharray: 6010;
+  stroke-dashoffset: 6010;
+  animation: line-anm 3s ease forwards 300ms;
+}
+
+.icon path:nth-child(3) {
+  stroke-dasharray: 426;
+  stroke-dashoffset: 426;
+  animation: line-anm 1s ease forwards 600ms;
+}
+
+/* 描边动画 */
+@keyframes line-anm {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+/* 填充动画 */
+@keyframes fill-anm {
+  from {
+    fill: transparent;
+  }
+
+  to {
+    fill: white;
+  }
+}
