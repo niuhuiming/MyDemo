@@ -1,0 +1,53 @@
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 15em;
+  background: #1e0227;
+}
+
+@keyframes stroke {
+  to {
+    stroke-dashoffset: -400;
+  }
+}
+svg {
+  width: 100vw;
+  height: 100vh;
+}
+
+.text {
+  fill: none;
+  stroke-width: 5;
+  stroke-dasharray: 70 330;
+  stroke-dashoffset: 0;
+  animation: stroke 6s infinite linear;
+}
+.text:nth-of-type(1) {
+  stroke: #b80c09;
+  animation-delay: -1.2s;
+}
+.text:nth-of-type(2) {
+  stroke: #fffc31;
+  animation-delay: -2.4s;
+}
+.text:nth-of-type(3) {
+  stroke: #d5f2e3;
+  animation-delay: -3.6s;
+}
+.text:nth-of-type(4) {
+  stroke: #03f7eb;
+  animation-delay: -4.8s;
+}
+.text:nth-of-type(5) {
+  stroke: #b91372;
+  animation-delay: -6s;
+}
+
+/*# sourceMappingURL=style.css.map */
