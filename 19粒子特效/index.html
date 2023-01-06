@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      overflow: hidden;
+      background: black;
+    }
+
+    .bg {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      opacity: .5;
+    }
+
+    #canvas {
+      position: relative;
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <span class="bg"></span>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 初始化粒子动画的配置
+    const particleNum = 100;  // 粒子数量
+    const lineDistance = 120; // 粒子之间小于120距离连接线条
+    const colorRGB = '254, 250, 224'; // 粒子和线条的RGB色值
+    let particles = []; // 存储随机粒子的数组
+    let interactionParticle = null; // 随鼠标移动的单个例子对象
+
+    // 粒子类
+    class Particle {
+      // constructor参数：粒子坐标的x, y值，粒子沿x轴, y轴移动的速度，粒子的大小和颜色
+      constructor(x, y, velocityX, velocityY, size, color) {
+        this.x = x;
+        this.y = y;
+        this.velocityX = velocityX;
+        this.velocityY = velocityY;
+        this.size = size;
+        this.color = color;
+      }
+      // 绘制单个粒子的方法
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+      // 更新动画的方法
+      update() {
+        // 抵达画布的边缘，改变粒子的运动方向
+        if (this.x > canvas.width || this.x < 0) {
+          this.velocityX *= -1;
+        }
+        if (this.y > canvas.height || this.y < 0) {
+          this.velocityY *= -1;
+        }
+        this.x += this.velocityX;
+        this.y += this.velocityY;
+        this.draw();
+      }
+    }
+
+    // 随机数函数
+    function getRandomArbitrary(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    // 随机生成粒子，将粒子保存到 particles 数组
+    function createParticles() {
+      for (let i = 0; i < particleNum; i++) {
+        let size = getRandomArbitrary(1, 3);
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let velocityX = getRandomArbitrary(-2, 2);
+        let velocityY = getRandomArbitrary(-2, 2);
+        let color = `rgba(${colorRGB}, ${1 - size / 3})`;
+        particles.push(new Particle(x, y, velocityX, velocityX, size, color));
+      }
+    }
+
+    // 动画方法
+    function animate() {
+      requestAnimationFrame(animate); // requestAnimationFrame 循环动画
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => particle.update());
+      connect();
+    }
+
+    // 添加连接粒子的线条
+    function connect() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i];
+          const p2 = particles[j]
+          let distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+          if (distance < lineDistance) {
+            ctx.strokeStyle = `rgba(${colorRGB}, ${1 - distance / lineDistance})`;
+            ctx.beginPath();
+            ctx.lineWidth = .8;
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // 添加鼠标之间的交互
+    function bindEvents() {
+      canvas.addEventListener('mouseout', e => {
+        interactionParticle.x = null;
+        interactionParticle.y = null;
+      });
+      canvas.addEventListener('mouseover', e => {
+        if (!interactionParticle) {
+          interactionParticle = new Particle(e.x, e.y, 0, 0, 2, `rgba(${colorRGB}, 1)`);
+          particles.push(interactionParticle);
+        }
+      });
+      canvas.addEventListener('mousemove', e => {
+        interactionParticle.x = e.x;
+        interactionParticle.y = e.y;
+      });
+    }
+
+    bindEvents();
+    createParticles();
+    animate();
+  </script>
+</body>
+
+</html>
